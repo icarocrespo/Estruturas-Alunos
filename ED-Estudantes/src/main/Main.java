@@ -1,21 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 /**
  *
- * @author icaro
+ * @author Ketrin | Jéssica | Marina
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Mapa mapa = new Mapa();
+        mapa.popularMapa();
+        
+        
     }
     
+    /*
+     * Método de análise de inserção na ED Vetor
+    */
+    public void vetor10000(){
+        System.out.println("Inserção de 10000 registros em Vetor");
+    }
+    
+    /*
+     * Método de análise de inserção na ED Árvore Binária
+    */
+    public void arvore10000(){
+        System.out.println("Inserção de 10000 registros em Árvore Binária");
+    }
+    
+    /*
+     * Método de análise de inserção na ED Lista Duplamente Encadeada
+    */
+    public void lista10000(){
+        System.out.println("Inserção de 10000 registros em Lista Duplamente Encadeada");
+    }
 }

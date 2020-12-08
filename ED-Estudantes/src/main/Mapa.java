@@ -1,28 +1,38 @@
 package main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Ketrin | Jéssica | Marina
- * @param <Integer>
- * @param <String> Classe Mapa, base para manipulação pelas Estruturas de Dados
  * Possui a matrícula do aluno como chave e Curso como valor
  */
-public class Mapa<Integer, String> {
+public class Mapa {
 
+    private Map<Integer, Estudante> estudantes;
+    
     public Mapa() {
+        estudantes = new HashMap<>();
+    }
 
+    public Map<Integer, Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public void setEstudantes(Map<Integer, Estudante> estudantes) {
+        this.estudantes = estudantes;
     }
 
     /*
      * adição de estudantes ao Mapa
      */
-    public void adicionaEstudante() {
+    public void popularMapa() {
         Estudante estudante;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             estudante = new Estudante();
-
+            this.estudantes.put(estudante.getMatricula(), estudante);
         }
-    }
-    
+    }   
 }
