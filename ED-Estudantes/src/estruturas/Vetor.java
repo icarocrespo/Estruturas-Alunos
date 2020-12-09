@@ -1,5 +1,10 @@
 package estruturas;
 
+import java.util.Iterator;
+import java.util.Map;
+import main.Estudante;
+import main.Mapa;
+
 /**
  *
  * @author Ketrin | Jéssica | Marina Classe Vetor
@@ -50,4 +55,30 @@ public class Vetor {
         this.tempo_remocao = tempo_remocao;
     }
 
+    public void inserir(Mapa mapa){
+        long tempo = System.nanoTime();
+        Iterator<Map.Entry<Integer, Estudante>> it = mapa.getEstudantes().entrySet().iterator();
+        while(it.hasNext()) {
+            //this.inicio = it.iterator();
+        }
+        this.tempo_insercao = System.nanoTime() - tempo;
+    }
+    
+    public void mostrarCrescente(){
+        long tempo = System.nanoTime();
+        
+        this.tempo_ordem = System.nanoTime() - tempo;
+    }
+    
+    public void contarES(){
+        long tempo = System.nanoTime();
+        
+        this.tempo_es = System.nanoTime() - tempo;
+    }
+    
+    public void remocao(){
+        long tempo = System.nanoTime();
+        
+        this.tempo_remocao = System.nanoTime() - tempo;
+    }
 }
