@@ -27,8 +27,12 @@ public class ListaDupla {
         this.inicio = inicio;
     }
 
-    public ListaDupla() {
-
+    public ListaDupla(Mapa mapa) {
+        
+    }
+    
+    public ListaDupla(){
+    
     }
 
 // Getters e Setters

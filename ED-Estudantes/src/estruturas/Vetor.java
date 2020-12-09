@@ -19,8 +19,12 @@ public class Vetor {
     private long tempo_ordem;
     private long tempo_es;
     private long tempo_remocao;
-
-    public Vetor() {
+    private Nodo[] vetor;
+    private int tamanho;
+    
+    public Vetor(int tamanho) {
+        this.tamanho = tamanho;
+        this.vetor = new Nodo[this.tamanho];
     }
 
     public long getTempo_insercao() {
@@ -53,6 +57,22 @@ public class Vetor {
 
     public void setTempo_remocao(long tempo_remocao) {
         this.tempo_remocao = tempo_remocao;
+    }
+
+    public Nodo[] getVetor() {
+        return vetor;
+    }
+
+    public void setVetor(Nodo[] vetor) {
+        this.vetor = vetor;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
     }
 
     public void inserir(Mapa mapa){

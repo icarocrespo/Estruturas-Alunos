@@ -28,7 +28,7 @@ public class Main {
      * Método de análise de inserção na ED Vetor
      */
     public static void vetor(Mapa mapa) {
-        Vetor vetor = new Vetor();
+        Vetor vetor = new Vetor(mapa.getEstudantes().size());
         System.out.println("Tempo decorrido para inserção de 100.000 registros em Lista Duplamente Encadeada: " + vetor.getTempo_insercao());
 
         System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + vetor.getTempo_ordem());
@@ -65,4 +65,5 @@ public class Main {
 
         System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + lista.getTempo_remocao());
     }
+    
 }
