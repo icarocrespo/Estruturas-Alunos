@@ -1,5 +1,6 @@
 package estruturas.vetor;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import main.Estudante;
@@ -79,10 +80,19 @@ public class Vetor {
     // Inserir 100.000 (cem mil) estudantes
     public void inserir(Mapa mapa) {
         long tempo = System.nanoTime();
-        Iterator<Map.Entry<Integer, Estudante>> it = mapa.getEstudantes().entrySet().iterator();
-        while (it.hasNext()) {
-            //this.inicio = it.iterator();
+        Collection<Estudante> cl = mapa.getEstudantes().values();
+        int posicao = 0;
+        Nodo nodo;
+        
+        for (Estudante estudante : cl){
+            nodo = new Nodo();
+            nodo.setMatricula(estudante.getMatricula());
+            nodo.setEstudante(estudante);
+            
+            this.vetor[posicao] = nodo;
+            posicao++;
         }
+        
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 

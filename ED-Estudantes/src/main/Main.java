@@ -18,10 +18,9 @@ public class Main {
         vetor(mapa);
 
         // Chamada do método que exibe os dados referentes ao Árvore Binária
-        arvore(mapa);
-
+        //arvore(mapa);
         // Chamada do método que exibe os dados referentes ao Lista Duplamente Encadeada
-        lista(mapa);
+        //lista(mapa);
     }
 
     /*
@@ -29,13 +28,14 @@ public class Main {
      */
     public static void vetor(Mapa mapa) {
         Vetor vetor = new Vetor(mapa.getEstudantes().size());
-        System.out.println("Tempo decorrido para inserção de 100.000 registros em Lista Duplamente Encadeada: " + vetor.getTempo_insercao());
-
-        System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + vetor.getTempo_ordem());
-
-        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + vetor.getTempo_es());
-
-        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + vetor.getTempo_remocao());
+        vetor.inserir(mapa);
+        System.out.println("Tempo decorrido para inserção de 100.000 registros em Lista Duplamente Encadeada: " + vetor.getTempo_insercao() + "ms");
+        //vetor.mostrarCrescente();
+        System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + vetor.getTempo_ordem() + "ms");
+        vetor.contarES();
+        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + vetor.getTempo_es() + "ms");
+        //vetor.remocaoNovo();
+        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + vetor.getTempo_remocao() + "ms");
     }
 
     /*
@@ -43,13 +43,13 @@ public class Main {
      */
     public static void arvore(Mapa mapa) {
         Arvore arvore = new Arvore();
-        System.out.println("Tempo decorrido para inserção de 100.000 registros na Árvore Binária: " + arvore.getTempo_insercao());
+        System.out.println("Tempo decorrido para inserção de 100.000 registros na Árvore Binária: " + arvore.getTempo_insercao() + "ms");
 
-        System.out.println("Tempo decorrido para ordenação da Árvore Binária: " + arvore.getTempo_ordem());
+        System.out.println("Tempo decorrido para ordenação da Árvore Binária: " + arvore.getTempo_ordem() + "ms");
 
-        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + arvore.getTempo_es());
+        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + arvore.getTempo_es() + "ms");
 
-        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + arvore.getTempo_remocao());
+        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + arvore.getTempo_remocao() + "ms");
     }
 
     /*
@@ -57,13 +57,12 @@ public class Main {
      */
     public static void lista(Mapa mapa) {
         ListaDupla lista = new ListaDupla();
-        System.out.println("Tempo decorrido para inserção de 100.000 registros na Lista Duplamente Encadeada: " + lista.getTempo_insercao());
+        System.out.println("Tempo decorrido para inserção de 100.000 registros na Lista Duplamente Encadeada: " + lista.getTempo_insercao() + "ms");
 
-        System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + lista.getTempo_ordem());
+        System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + lista.getTempo_ordem() + "ms");
 
-        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + lista.getTempo_es());
+        System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + lista.getTempo_es() + "ms");
 
-        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + lista.getTempo_remocao());
+        System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + lista.getTempo_remocao() + "ms");
     }
-    
 }
