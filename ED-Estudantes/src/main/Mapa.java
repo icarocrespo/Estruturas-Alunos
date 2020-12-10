@@ -11,6 +11,7 @@ import java.util.Map;
 public class Mapa {
 
     private Map<Integer, Estudante> estudantes;
+    private int quantidade;
     
     public Mapa() {
         estudantes = new HashMap<>();
@@ -24,6 +25,14 @@ public class Mapa {
         this.estudantes = estudantes;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     /*
      * adição de estudantes ao Mapa
      */
@@ -34,5 +43,6 @@ public class Mapa {
             estudante = new Estudante();
             this.estudantes.put(estudante.getMatricula(), estudante);
         }
+        this.quantidade = this.estudantes.size();
     }   
 }

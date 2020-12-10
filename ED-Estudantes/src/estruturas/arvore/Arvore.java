@@ -71,6 +71,9 @@ public class Arvore {
         this.tempo_remocao = tempo_remocao;
     }
     
+// Métodos aos requisitos
+    
+    // Inserir 100.000 (cem mil) estudantes
     public void inserir(Mapa mapa){
         long tempo = System.nanoTime();
         Iterator<Map.Entry<Integer, Estudante>> it = mapa.getEstudantes().entrySet().iterator();
@@ -80,18 +83,21 @@ public class Arvore {
         this.tempo_insercao = System.nanoTime() - tempo;
     }
     
+    // Apresentar todos os estudantes em ordem crescente de número de matricula
     public void mostrarCrescente(){
         long tempo = System.nanoTime();
         
         this.tempo_ordem = System.nanoTime() - tempo;
     }
     
+    // Verificar quantos estudantes realizam o curso Engenharia de Software
     public void contarES(){
         long tempo = System.nanoTime();
         
         this.tempo_es = System.nanoTime() - tempo;
     }
     
+    // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
     public void remocao(){
         long tempo = System.nanoTime();
         

@@ -1,6 +1,6 @@
 package main;
 
-import estruturas.Vetor;
+import estruturas.vetor.Vetor;
 import estruturas.arvore.Arvore;
 import estruturas.lista.ListaDupla;
 

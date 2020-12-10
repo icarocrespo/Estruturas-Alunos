@@ -1,10 +1,10 @@
-package estruturas;
+package estruturas.vetor;
 
 import main.Estudante;
 
 /**
  *
- * @author icaro
+ * @author Ketrin | Jéssica | Marina Classe Vetor
  */
 public class Nodo {
     
