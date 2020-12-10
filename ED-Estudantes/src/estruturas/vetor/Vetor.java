@@ -1,10 +1,9 @@
 package estruturas.vetor;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import main.Estudante;
-import main.Mapa;
 
 /**
  *
@@ -14,7 +13,7 @@ import main.Mapa;
  * verificar o quantitativo de estudantes de Engenharia de Software
  * tempo_remocao -> Tempo para remoção de estudantes com matrícula <= 20205000
  */
-public class Vetor {
+public class Vetor implements Map<Integer, Estudante> {
 
     private long tempo_insercao;
     private long tempo_ordem;
@@ -26,6 +25,10 @@ public class Vetor {
     public Vetor(int tamanho) {
         this.tamanho = tamanho;
         this.vetor = new Nodo[this.tamanho];
+    }
+    
+    public Vetor(){
+    
     }
 
     public long getTempo_insercao() {
@@ -78,21 +81,21 @@ public class Vetor {
 
 // Métodos aos requisitos
     // Inserir 100.000 (cem mil) estudantes
-    public void inserir(Mapa mapa) {
+    public void inserir() {
         long tempo = System.nanoTime();
-        Collection<Estudante> cl = mapa.getEstudantes().values();
+        
         int posicao = 0;
         Nodo nodo;
-        
-        for (Estudante estudante : cl){
-            nodo = new Nodo();
-            nodo.setMatricula(estudante.getMatricula());
-            nodo.setEstudante(estudante);
-            
-            this.vetor[posicao] = nodo;
-            posicao++;
-        }
-        
+
+//        for (Estudante estudante : cl) {
+//            nodo = new Nodo();
+//            nodo.setMatricula(estudante.getMatricula());
+//            nodo.setEstudante(estudante);
+//
+//            this.vetor[posicao] = nodo;
+//            posicao++;
+//        }
+
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 
@@ -157,5 +160,106 @@ public class Vetor {
                     + vetor[i].getEstudante().getMatricula() + " | Curso: " + vetor[i].getEstudante().getCurso());
         }
         System.out.println("--- FIM ---");
+    }
+
+    @Override
+    public int size() {
+        return this.tamanho;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.tamanho == 0;
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        for (Nodo nodo : this.vetor) {
+            if (nodo.getMatricula().equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        for (Nodo nodo : this.vetor) {
+            if (nodo.getEstudante().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Estudante get(Object key) {
+        for (Nodo nodo : this.vetor) {
+            if (nodo.getMatricula().equals(key)) {
+                return nodo.getEstudante();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Estudante put(Integer key, Estudante value) {
+        Nodo nodo = new Nodo();
+
+        nodo.setMatricula(key);
+        nodo.setEstudante(value);
+        this.vetor[this.tamanho] = nodo;
+        tamanho++;
+        return value;
+    }
+
+    @Override
+    public Estudante remove(Object key) {
+        Estudante estudante = null;
+        int i;
+        
+        // procura e captura o estudante
+        for (i = 0; i < this.vetor.length; i++) {
+            if (this.vetor[i].getMatricula().equals(key)) {
+                estudante = this.vetor[i].getEstudante();
+            }
+        }
+
+        // suprime estudante removido
+        while (i < this.vetor.length) {
+            this.vetor[i] = this.vetor[i + 1];
+            i++;
+        }
+
+        return estudante;
+    }
+
+    @Override
+    public void putAll(Map<? extends Integer, ? extends Estudante> m) {
+        Collection<Estudante> collectionEstudante = (Collection<Estudante>) m.values();
+        // TODO
+    }
+
+    @Override
+    public void clear() {
+        for (int i = 0; i < this.vetor.length; i++) {
+            this.vetor[i] = null;
+        }
+    }
+
+    @Override
+    public Set<Integer> keySet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<Estudante> values() {
+
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set<Entry<Integer, Estudante>> entrySet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

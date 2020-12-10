@@ -11,11 +11,9 @@ import estruturas.lista.ListaDupla;
 public class Main {
 
     public static void main(String[] args) {
-        Mapa mapa = new Mapa();
-        mapa.popularMapa();
+   
 
         // Chamada do método que exibe os dados referentes ao Vetor
-        vetor(mapa);
 
         // Chamada do método que exibe os dados referentes ao Árvore Binária
         //arvore(mapa);
@@ -26,9 +24,10 @@ public class Main {
     /*
      * Método de análise de inserção na ED Vetor
      */
-    public static void vetor(Mapa mapa) {
-        Vetor vetor = new Vetor(mapa.getEstudantes().size());
-        vetor.inserir(mapa);
+    public static void vetor() {
+        System.out.println("VETOR");
+        Vetor vetor = new Vetor();
+        
         System.out.println("Tempo decorrido para inserção de 100.000 registros em Lista Duplamente Encadeada: " + vetor.getTempo_insercao() + "ms");
         //vetor.mostrarCrescente();
         System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + vetor.getTempo_ordem() + "ms");
@@ -41,7 +40,7 @@ public class Main {
     /*
      * Método de análise de inserção na ED Árvore Binária
      */
-    public static void arvore(Mapa mapa) {
+    public static void arvore() {
         Arvore arvore = new Arvore();
         System.out.println("Tempo decorrido para inserção de 100.000 registros na Árvore Binária: " + arvore.getTempo_insercao() + "ms");
 
@@ -55,7 +54,7 @@ public class Main {
     /*
      * Método de análise de inserção na ED Lista Duplamente Encadeada
      */
-    public static void lista(Mapa mapa) {
+    public static void lista() {
         ListaDupla lista = new ListaDupla();
         System.out.println("Tempo decorrido para inserção de 100.000 registros na Lista Duplamente Encadeada: " + lista.getTempo_insercao() + "ms");
 

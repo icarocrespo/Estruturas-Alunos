@@ -1,10 +1,9 @@
 package estruturas.lista;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import main.Estudante;
-import main.Mapa;
 
 /**
  *
@@ -14,7 +13,7 @@ import main.Mapa;
  * tempo_es -> Tempo para verificar o quantitativo de estudantes de Engenharia de Software
  * tempo_remocao -> Tempo para remoção de estudantes com matrícula <= 20205000
  */
-public class ListaDupla {
+public class ListaDupla implements Map<Integer, Estudante>{
 
     // Atributo de início/fim da lista duplamente encadeada
     private Nodo inicio;
@@ -27,12 +26,7 @@ public class ListaDupla {
     public ListaDupla(Nodo inicio) {
         this.inicio = inicio;
         this.nElementos = 0;
-    }
-
-    public ListaDupla(Mapa mapa) {
-        this.nElementos = mapa.getQuantidade();
-    }
-    
+    }    
     public ListaDupla(){
     
     }
@@ -89,22 +83,22 @@ public class ListaDupla {
 // Métodos aos requisitos
     
     // Inserir 100.000 (cem mil) estudantes
-    public void inserir(Mapa mapa){
+    public void inserir(){
         long tempo = System.nanoTime();
         
-        Collection<Estudante> col = mapa.getEstudantes().values();
-        Iterator<Estudante> it = col.iterator();
-        Nodo nodo;
-        
-        while(it.hasNext()){
-            if(this.inicio == null){
-                nodo = new Nodo();
-                this.inicio.setEstudante(it.next());
-                this.inicio.setProximo(nodo);
-            }else{
-            
-            }
-        }
+//        Collection<Estudante> col = mapa.getEstudantes().values();
+//        Iterator<Estudante> it = col.iterator();
+//        Nodo nodo;
+//        
+//        while(it.hasNext()){
+//            if(this.inicio == null){
+//                nodo = new Nodo();
+//                this.inicio.setEstudante(it.next());
+//                this.inicio.setProximo(nodo);
+//            }else{
+//            
+//            }
+//        }
         this.tempo_insercao = System.nanoTime() - tempo;
     }
     
@@ -135,5 +129,65 @@ public class ListaDupla {
         long tempo = System.nanoTime();
         
         this.tempo_remocao = System.nanoTime() - tempo;
+    }
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Estudante get(Object key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Estudante put(Integer key, Estudante value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Estudante remove(Object key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void putAll(Map<? extends Integer, ? extends Estudante> m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set<Integer> keySet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<Estudante> values() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set<Entry<Integer, Estudante>> entrySet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
