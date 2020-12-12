@@ -120,12 +120,24 @@ public class Arvore implements Map<Integer, Estudante> {
         return raiz.getEsquerda() == null && raiz.getDireita() == null;
     }
 
-    @Override
-    public boolean containsKey(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // Método recursivo para informar se há uma determinada matrícula (chave)
+    public boolean containsKey(Nodo nodo, Integer matricula) {
+        if (nodo.getMatricula().equals(matricula)) {
+            return true;
+        } else if (nodo.getMatricula() > matricula) {
+            return containsKey(nodo.getEsquerda(), matricula);
+        } else {
+            return containsKey(nodo.getDireita(), matricula);
+        }
     }
 
-    public boolean containsValue(Nodo nodo, Estudante estudante){
+    @Override
+    public boolean containsKey(Object key) {
+        return containsKey(this.raiz, (Integer) key);
+    }
+
+    // Método recursivo para informar se há um determinado estudante
+    public boolean containsValue(Nodo nodo, Estudante estudante) {
         if (nodo.getEstudante().equals(estudante)) {
             return true;
         } else if (nodo.getMatricula() > estudante.getMatricula()) {
@@ -134,7 +146,7 @@ public class Arvore implements Map<Integer, Estudante> {
             return containsValue(nodo.getDireita(), estudante);
         }
     }
-    
+
     @Override
     public boolean containsValue(Object value) {
         return containsValue(this.raiz, (Estudante) value);
@@ -177,9 +189,34 @@ public class Arvore implements Map<Integer, Estudante> {
         return put(this.raiz, key, value);
     }
 
+    public Estudante remove(Nodo nodo, Integer matricula) {
+        if (nodo == null) {
+            return nodo.getEstudante();
+        }
+
+        if (matricula < nodo.getMatricula()) {
+            nodo.getEsquerda().setEstudante(remove(nodo.getEsquerda(), matricula));
+            nodo.getDireita().setMatricula(matricula);
+        } else if (matricula > nodo.getMatricula()) {
+            nodo.getDireita().setMatricula(matricula);
+            nodo.getDireita().setEstudante(remove(nodo.getDireita(), matricula));
+        } else {
+            
+            if (nodo.getEsquerda() == null) {
+                return nodo.getDireita().getEstudante();
+            } else if (nodo.getDireita().getEstudante() == null) {
+                return nodo.getEsquerda().getEstudante();
+            }
+
+            //nodo.setMatricula(valorMenor(nodo.getDireita());
+            //nodo.getDireita().setEstudante(nodo.getDireita(), nodo.getEstudante());
+        }
+        return nodo.getEstudante();
+    }
+
     @Override
     public Estudante remove(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return remove(this.raiz, (Integer) key);
     }
 
     @Override
