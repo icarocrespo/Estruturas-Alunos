@@ -9,11 +9,13 @@ import main.Estudante;
 public class Nodo {
     private Nodo anterior;
     private Nodo proximo;
+    private Integer matricula;
     private Estudante estudante;
 
-    public Nodo(Nodo anterior, Nodo proximo, Estudante estudante) {
+    public Nodo(Nodo anterior, Nodo proximo, Integer matricula, Estudante estudante) {
         this.anterior = anterior;
         this.proximo = proximo;
+        this.matricula = matricula;
         this.estudante = estudante;
     }
     
@@ -37,6 +39,14 @@ public class Nodo {
         this.proximo = proximo;
     }
 
+    public Integer getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Integer matricula) {
+        this.matricula = matricula;
+    }
+
     public Estudante getEstudante() {
         return estudante;
     }
@@ -44,6 +54,5 @@ public class Nodo {
     public void setEstudante(Estudante estudante) {
         this.estudante = estudante;
     }
-    
     
 }

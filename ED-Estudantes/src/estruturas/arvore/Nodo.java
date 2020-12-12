@@ -9,11 +9,13 @@ import main.Estudante;
 public class Nodo{
     private Nodo esquerda;
     private Nodo direita;
+    private Integer matricula;
     private Estudante estudante;
 
-    public Nodo(Nodo esquerda, Nodo direita, Estudante estudante) {
+    public Nodo(Nodo esquerda, Nodo direita, Integer matricula, Estudante estudante) {
         this.esquerda = esquerda;
         this.direita = direita;
+        this.matricula = matricula;
         this.estudante = estudante;
     }
     
@@ -37,6 +39,14 @@ public class Nodo{
         this.direita = direita;
     }
 
+    public Integer getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Integer matricula) {
+        this.matricula = matricula;
+    }
+    
     public Estudante getEstudante() {
         return estudante;
     }

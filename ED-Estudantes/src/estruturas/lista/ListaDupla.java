@@ -7,13 +7,14 @@ import main.Estudante;
 
 /**
  *
- * @author Ketrin | Jéssica | Marina Classe ListaDupla com atributo início do tipo Nodo
- * tempo_insercao -> Tempo para inserção de 100.000 estudantes
- * tempo_ordem -> Tempo para ordenamento crescente, por número de matrícula, dos estudantes
- * tempo_es -> Tempo para verificar o quantitativo de estudantes de Engenharia de Software
- * tempo_remocao -> Tempo para remoção de estudantes com matrícula <= 20205000
+ * @author Ketrin | Jéssica | Marina Classe ListaDupla com atributo início do
+ * tipo Nodo tempo_insercao -> Tempo para inserção de 100.000 estudantes
+ * tempo_ordem -> Tempo para ordenamento crescente, por número de matrícula, dos
+ * estudantes tempo_es -> Tempo para verificar o quantitativo de estudantes de
+ * Engenharia de Software tempo_remocao -> Tempo para remoção de estudantes com
+ * matrícula <= 20205000
  */
-public class ListaDupla implements Map<Integer, Estudante>{
+public class ListaDupla implements Map<Integer, Estudante> {
 
     // Atributo de início/fim da lista duplamente encadeada
     private Nodo inicio;
@@ -26,11 +27,12 @@ public class ListaDupla implements Map<Integer, Estudante>{
     public ListaDupla(Nodo inicio) {
         this.inicio = inicio;
         this.nElementos = 0;
-    }    
-    public ListaDupla(){
-    
     }
-    
+
+    public ListaDupla() {
+
+    }
+
 // Getters e Setters
     public Nodo getInicio() {
         return inicio;
@@ -79,13 +81,12 @@ public class ListaDupla implements Map<Integer, Estudante>{
     public void setnElementos(int nElementos) {
         this.nElementos = nElementos;
     }
-    
+
 // Métodos aos requisitos
-    
     // Inserir 100.000 (cem mil) estudantes
-    public void inserir(){
+    public void inserir() {
         long tempo = System.nanoTime();
-        
+
 //        Collection<Estudante> col = mapa.getEstudantes().values();
 //        Iterator<Estudante> it = col.iterator();
 //        Nodo nodo;
@@ -101,19 +102,19 @@ public class ListaDupla implements Map<Integer, Estudante>{
 //        }
         this.tempo_insercao = System.nanoTime() - tempo;
     }
-    
+
     // Apresentar todos os estudantes em ordem crescente de número de matricula
-    public void mostrarCrescente(){
+    public void mostrarCrescente() {
         long tempo = System.nanoTime();
-        
+
         this.tempo_ordem = System.nanoTime() - tempo;
     }
-    
+
     // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public int contarES(){
+    public int contarES() {
         long tempo = System.nanoTime();
         int count = 0;
-        
+
         Nodo atual = this.inicio;
         while (atual.getProximo() != null) {
             if (atual.getEstudante().getCurso().equals("Engenharia de Software")) {
@@ -123,47 +124,96 @@ public class ListaDupla implements Map<Integer, Estudante>{
         this.tempo_es = System.nanoTime() - tempo;
         return count;
     }
-    
+
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
-    public void remocao(){
+    public void remocao() {
         long tempo = System.nanoTime();
-        
+
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo aux = this.inicio;
+        int count = 0;
+
+        while (aux.getProximo() != null) {
+            aux = aux.getProximo();
+            count++;
+        }
+
+        return count;
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.inicio == null;
     }
 
     @Override
     public boolean containsKey(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo aux = this.inicio;
+
+        while (aux.getProximo() != null) {
+            if (aux.getMatricula().equals(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsValue(Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo aux = this.inicio;
+
+        while (aux.getProximo() != null) {
+            if (aux.getEstudante().equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Estudante get(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo aux = this.inicio;
+
+        while (aux.getProximo() != null) {
+            if (aux.getMatricula().equals(key)) {
+                return aux.getEstudante();
+            }
+        }
+        return null;
     }
 
     @Override
     public Estudante put(Integer key, Estudante value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo nodo = new Nodo();
+        Nodo aux = this.inicio;
+
+        nodo.setMatricula(key);
+        nodo.setEstudante(value);
+
+        while (aux.getProximo() != null) {
+            if (aux.getProximo() == null) {
+                aux.setProximo(nodo);
+                aux.getProximo().setAnterior(aux);
+            }
+        }
+        return value;
     }
 
     @Override
     public Estudante remove(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Nodo aux = this.inicio;
+
+        while (aux.getProximo() != null) {
+            if (aux.getMatricula().equals(key)) {
+                aux.getAnterior().setProximo(aux.getProximo());
+                aux.getProximo().setAnterior(aux.getAnterior());
+            }
+        }
+        return aux.getEstudante();
     }
 
     @Override
@@ -173,17 +223,32 @@ public class ListaDupla implements Map<Integer, Estudante>{
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.inicio = null;
+        this.inicio.setProximo(null);
     }
 
     @Override
     public Set<Integer> keySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<Integer> keys = null;
+
+        Nodo aux = this.inicio;
+        while (aux.getProximo() != null) {
+            keys.add(aux.getMatricula());
+        }
+
+        return keys;
     }
 
     @Override
     public Collection<Estudante> values() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Collection<Estudante> collectionEstudantes = null;
+        Nodo aux = this.inicio;
+        
+        while (aux.getProximo() != null) {
+            collectionEstudantes.add(aux.getEstudante());
+      
+        }
+        return collectionEstudantes;    
     }
 
     @Override

@@ -1,6 +1,7 @@
 package estruturas.vetor;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import main.Estudante;
@@ -26,9 +27,9 @@ public class Vetor implements Map<Integer, Estudante> {
         this.tamanho = tamanho;
         this.vetor = new Nodo[this.tamanho];
     }
-    
-    public Vetor(){
-    
+
+    public Vetor() {
+
     }
 
     public long getTempo_insercao() {
@@ -83,7 +84,7 @@ public class Vetor implements Map<Integer, Estudante> {
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
         long tempo = System.nanoTime();
-        
+
         int posicao = 0;
         Nodo nodo;
 
@@ -95,7 +96,6 @@ public class Vetor implements Map<Integer, Estudante> {
 //            this.vetor[posicao] = nodo;
 //            posicao++;
 //        }
-
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 
@@ -217,7 +217,7 @@ public class Vetor implements Map<Integer, Estudante> {
     public Estudante remove(Object key) {
         Estudante estudante = null;
         int i;
-        
+
         // procura e captura o estudante
         for (i = 0; i < this.vetor.length; i++) {
             if (this.vetor[i].getMatricula().equals(key)) {
@@ -236,7 +236,17 @@ public class Vetor implements Map<Integer, Estudante> {
 
     @Override
     public void putAll(Map<? extends Integer, ? extends Estudante> m) {
+        
         Collection<Estudante> collectionEstudante = (Collection<Estudante>) m.values();
+        Nodo nodo;
+        
+        while(collectionEstudante.iterator().hasNext()){
+            nodo = new Nodo();
+            nodo.setEstudante(collectionEstudante.iterator().next());
+            nodo.setMatricula(nodo.getEstudante().getMatricula());
+            
+            this.vetor[tamanho] = nodo;
+        }
         // TODO
     }
 
@@ -249,17 +259,30 @@ public class Vetor implements Map<Integer, Estudante> {
 
     @Override
     public Set<Integer> keySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<Integer> keys = new HashSet<>();
+        
+        for (int i = 0; i < this.vetor.length; i++) {
+            keys.add(vetor[i].getMatricula());
+        }
+        return keys;
     }
 
     @Override
     public Collection<Estudante> values() {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Collection<Estudante> collectionEstudantes = null;
+        
+        for (int i = 0; i < this.vetor.length; i++) {
+            collectionEstudantes.add(vetor[i].getEstudante());
+        }
+        return collectionEstudantes;
     }
 
     @Override
     public Set<Entry<Integer, Estudante>> entrySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<Entry<Integer, Estudante>> setEstudantes = null;
+       
+        //setEstudantes.addAll(this.values());
+
+        return setEstudantes;
     }
 }
