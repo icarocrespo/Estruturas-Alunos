@@ -90,7 +90,12 @@ public class Arvore implements Map<Integer, Estudante> {
     // Verificar quantos estudantes realizam o curso Engenharia de Software
     public void contarES() {
         long tempo = System.nanoTime();
-
+        Estudante estudante = new Estudante();
+        int count = 0;
+        
+        while(containsValue(this.raiz)){
+            count++;
+        }
         this.tempo_es = System.nanoTime() - tempo;
     }
 
@@ -98,6 +103,9 @@ public class Arvore implements Map<Integer, Estudante> {
     public void remocao() {
         long tempo = System.nanoTime();
 
+        while (remove(get(202050000)) != null) {
+            
+        }
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 
@@ -201,7 +209,7 @@ public class Arvore implements Map<Integer, Estudante> {
             nodo.getDireita().setMatricula(matricula);
             nodo.getDireita().setEstudante(remove(nodo.getDireita(), matricula));
         } else {
-            
+
             if (nodo.getEsquerda() == null) {
                 return nodo.getDireita().getEstudante();
             } else if (nodo.getDireita().getEstudante() == null) {

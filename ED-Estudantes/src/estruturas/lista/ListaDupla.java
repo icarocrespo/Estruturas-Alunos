@@ -24,9 +24,14 @@ public class ListaDupla implements Map<Integer, Estudante> {
     private long tempo_remocao;
     private int nElementos;
 
-    public ListaDupla(Nodo inicio) {
+    public ListaDupla(Nodo inicio, int nElementos) {
         this.inicio = inicio;
-        this.nElementos = 0;
+        this.nElementos = nElementos;
+    }
+
+    public ListaDupla(int nElementos) {
+        this.inicio = null;
+        this.nElementos = nElementos;
     }
 
     public ListaDupla() {
@@ -86,27 +91,35 @@ public class ListaDupla implements Map<Integer, Estudante> {
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
         long tempo = System.nanoTime();
+        Estudante estudante;
 
-//        Collection<Estudante> col = mapa.getEstudantes().values();
-//        Iterator<Estudante> it = col.iterator();
-//        Nodo nodo;
-//        
-//        while(it.hasNext()){
-//            if(this.inicio == null){
-//                nodo = new Nodo();
-//                this.inicio.setEstudante(it.next());
-//                this.inicio.setProximo(nodo);
-//            }else{
-//            
-//            }
-//        }
+        for (int i = 0; i < this.nElementos; i++) {
+            estudante = new Estudante();
+            put(estudante.getMatricula(), estudante);
+        }
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 
     // Apresentar todos os estudantes em ordem crescente de número de matricula
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
+        Nodo nodo1;
+        Nodo nodo2;
+        Nodo aux = this.inicio;
 
+        do {
+            nodo1 = aux;
+            nodo2 = nodo1.getProximo();
+            if (nodo2.getMatricula() < nodo1.getMatricula()) {
+                nodo1.setProximo(nodo2.getProximo());
+                nodo2.setAnterior(nodo1.getAnterior());
+                nodo1.setAnterior(nodo2);
+                nodo2.setProximo(nodo1);
+            }
+            aux = aux.getProximo();
+
+        } while (aux.getProximo() != null);
+        mostrar(this.inicio);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
@@ -115,11 +128,12 @@ public class ListaDupla implements Map<Integer, Estudante> {
         long tempo = System.nanoTime();
         int count = 0;
 
-        Nodo atual = this.inicio;
-        while (atual.getProximo() != null) {
-            if (atual.getEstudante().getCurso().equals("Engenharia de Software")) {
+        Nodo aux = this.inicio;
+        while (aux != null) {
+            if (aux.getEstudante().getCurso().equals("Engenharia de Software")) {
                 count++;
             }
+            aux = aux.getProximo();
         }
         this.tempo_es = System.nanoTime() - tempo;
         return count;
@@ -129,20 +143,42 @@ public class ListaDupla implements Map<Integer, Estudante> {
     public void remocao() {
         long tempo = System.nanoTime();
 
+        remove(202050000);
         this.tempo_remocao = System.nanoTime() - tempo;
+    }
+
+    // Mostrar a lita
+    public void mostrar(Nodo nodo) {
+        System.out.println("Mostrando registros da ED Lista duplamente encadeada:");
+        int i = 0;
+        Nodo aux = nodo;
+
+        while (aux != null) {
+            System.out.println("Posição " + i + ": Matrícula: "
+                    + aux.getEstudante().getMatricula() + " | Curso: " + aux.getEstudante().getCurso());
+
+            aux = aux.getProximo();
+            i++;
+        }
+        System.out.println("--- Fim da exibição ---");
     }
 
     @Override
     public int size() {
-        Nodo aux = this.inicio;
-        int count = 0;
+        if (isEmpty()) {
+            return 0;
+        } else if (this.inicio.getProximo() == null) {
+            return 1;
+        } else {
+            Nodo aux = this.inicio;
+            int count = 0;
 
-        while (aux.getProximo() != null) {
-            aux = aux.getProximo();
-            count++;
+            while (aux.getProximo() != null) {
+                aux = aux.getProximo();
+                count++;
+            }
+            return count;
         }
-
-        return count;
     }
 
     @Override
@@ -152,11 +188,16 @@ public class ListaDupla implements Map<Integer, Estudante> {
 
     @Override
     public boolean containsKey(Object key) {
-        Nodo aux = this.inicio;
 
-        while (aux.getProximo() != null) {
-            if (aux.getMatricula().equals(key)) {
-                return true;
+        if (this.inicio.getMatricula().equals(key)) {
+            return true;
+        } else {
+            Nodo aux = this.inicio;
+
+            while (aux.getProximo() != null) {
+                if (aux.getMatricula().equals(key)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -164,11 +205,16 @@ public class ListaDupla implements Map<Integer, Estudante> {
 
     @Override
     public boolean containsValue(Object value) {
-        Nodo aux = this.inicio;
 
-        while (aux.getProximo() != null) {
-            if (aux.getEstudante().equals(value)) {
-                return true;
+        if (this.inicio.getEstudante().equals(value)) {
+            return true;
+        } else {
+            Nodo aux = this.inicio;
+
+            while (aux.getProximo() != null) {
+                if (aux.getEstudante().equals(value)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -176,11 +222,16 @@ public class ListaDupla implements Map<Integer, Estudante> {
 
     @Override
     public Estudante get(Object key) {
-        Nodo aux = this.inicio;
 
-        while (aux.getProximo() != null) {
-            if (aux.getMatricula().equals(key)) {
-                return aux.getEstudante();
+        if (this.inicio.getMatricula().equals(key)) {
+            return this.inicio.getEstudante();
+        } else {
+            Nodo aux = this.inicio;
+
+            while (aux.getProximo() != null) {
+                if (aux.getMatricula().equals(key)) {
+                    return aux.getEstudante();
+                }
             }
         }
         return null;
@@ -189,16 +240,25 @@ public class ListaDupla implements Map<Integer, Estudante> {
     @Override
     public Estudante put(Integer key, Estudante value) {
         Nodo nodo = new Nodo();
-        Nodo aux = this.inicio;
 
         nodo.setMatricula(key);
         nodo.setEstudante(value);
 
-        while (aux.getProximo() != null) {
-            if (aux.getProximo() == null) {
-                aux.setProximo(nodo);
-                aux.getProximo().setAnterior(aux);
-            }
+        if (this.inicio == null) {
+            this.inicio = nodo;
+        } else {
+            Nodo aux = this.inicio;
+
+            do {
+                if (aux.getProximo() == null) {
+                    aux.setProximo(nodo);
+                    nodo.setAnterior(aux);
+                    nodo.setProximo(null);
+                    break;
+                }
+                aux = aux.getProximo();
+
+            } while (aux != null);
         }
         return value;
     }
@@ -207,13 +267,17 @@ public class ListaDupla implements Map<Integer, Estudante> {
     public Estudante remove(Object key) {
         Nodo aux = this.inicio;
 
-        while (aux.getProximo() != null) {
-            if (aux.getMatricula().equals(key)) {
+        do {
+            if (aux.getMatricula() < Integer.parseInt(key.toString()) && aux == this.inicio) {
+                this.inicio = aux.getProximo();
+            } else if (aux.getMatricula() < Integer.parseInt(key.toString())) {
                 aux.getAnterior().setProximo(aux.getProximo());
                 aux.getProximo().setAnterior(aux.getAnterior());
             }
-        }
-        return aux.getEstudante();
+            aux = aux.getProximo();
+        } while (aux != null);
+        return aux.getAnterior().getEstudante();
+
     }
 
     @Override
@@ -243,12 +307,12 @@ public class ListaDupla implements Map<Integer, Estudante> {
     public Collection<Estudante> values() {
         Collection<Estudante> collectionEstudantes = null;
         Nodo aux = this.inicio;
-        
+
         while (aux.getProximo() != null) {
             collectionEstudantes.add(aux.getEstudante());
-      
+
         }
-        return collectionEstudantes;    
+        return collectionEstudantes;
     }
 
     @Override
