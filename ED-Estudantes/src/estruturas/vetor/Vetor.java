@@ -22,10 +22,12 @@ public class Vetor implements Map<Integer, Estudante> {
     private long tempo_remocao;
     private Nodo[] vetor;
     private int tamanho;
+    private int posicao;
 
     public Vetor(int tamanho) {
         this.tamanho = tamanho;
         this.vetor = new Nodo[this.tamanho];
+        this.posicao = 0;
     }
 
     public Vetor() {
@@ -80,38 +82,42 @@ public class Vetor implements Map<Integer, Estudante> {
         this.tamanho = tamanho;
     }
 
+    public int getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(int posicao) {
+        this.posicao = posicao;
+    }
+    
+    
+
 // Métodos aos requisitos
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
         long tempo = System.nanoTime();
 
-        int posicao = 0;
-        Nodo nodo;
+        Estudante estudante;
 
-//        for (Estudante estudante : cl) {
-//            nodo = new Nodo();
-//            nodo.setMatricula(estudante.getMatricula());
-//            nodo.setEstudante(estudante);
-//
-//            this.vetor[posicao] = nodo;
-//            posicao++;
-//        }
+        for (int i = 0; i < this.vetor.length; i++) {
+            estudante = new Estudante();
+            put(estudante.getMatricula(), estudante);
+        }
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 
     // Apresentar todos os estudantes em ordem crescente de número de matricula
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
-        Nodo[] vetor_crescente = new Nodo[this.tamanho];
 
-        for (int i = 0; i < vetor.length; i++) {
-            for (int j = 0; j < vetor.length; j++) {
-                if (vetor[j].getMatricula() < vetor[i].getMatricula()) {
-                    vetor_crescente[i] = vetor[i];
+        for (int i = 0; i < this.tamanho; i++)
+            for (int j = 0; j < this.tamanho-i-1; j++)
+                if (this.vetor[j].getMatricula() > this.vetor[j+1].getMatricula()){
+                    Nodo nodo = this.vetor[j];
+                    this.vetor[j] = this.vetor[j+1];
+                    this.vetor[j+1] = nodo;
                 }
-            }
-        }
-        mostrar(vetor_crescente);
+        mostrar(this.vetor);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
@@ -148,7 +154,16 @@ public class Vetor implements Map<Integer, Estudante> {
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000 (no próprio vetor)
     public void remocao() {
         long tempo = System.nanoTime();
+        Nodo[] vetor_removidos = new Nodo[this.vetor.length];
+        int posicao = 0;
 
+        for (int i = 0; i < vetor_removidos.length; i++) {
+            if (vetor[i].getMatricula() >= 202050000) {
+                vetor_removidos[posicao] = vetor[i];
+            }
+            posicao++;
+        }
+        this.vetor = vetor_removidos;
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 
@@ -159,7 +174,7 @@ public class Vetor implements Map<Integer, Estudante> {
             System.out.println("Posição " + i + ": Matrícula: "
                     + vetor[i].getEstudante().getMatricula() + " | Curso: " + vetor[i].getEstudante().getCurso());
         }
-        System.out.println("--- FIM ---");
+        System.out.println("--- Fim da exibição ---");
     }
 
     @Override
@@ -208,8 +223,8 @@ public class Vetor implements Map<Integer, Estudante> {
 
         nodo.setMatricula(key);
         nodo.setEstudante(value);
-        this.vetor[this.tamanho] = nodo;
-        tamanho++;
+        this.vetor[this.posicao] = nodo;
+        this.posicao++;
         return value;
     }
 
@@ -236,15 +251,15 @@ public class Vetor implements Map<Integer, Estudante> {
 
     @Override
     public void putAll(Map<? extends Integer, ? extends Estudante> m) {
-        
+
         Collection<Estudante> collectionEstudante = (Collection<Estudante>) m.values();
         Nodo nodo;
-        
-        while(collectionEstudante.iterator().hasNext()){
+
+        while (collectionEstudante.iterator().hasNext()) {
             nodo = new Nodo();
             nodo.setEstudante(collectionEstudante.iterator().next());
             nodo.setMatricula(nodo.getEstudante().getMatricula());
-            
+
             this.vetor[tamanho] = nodo;
         }
         // TODO
@@ -260,7 +275,7 @@ public class Vetor implements Map<Integer, Estudante> {
     @Override
     public Set<Integer> keySet() {
         Set<Integer> keys = new HashSet<>();
-        
+
         for (int i = 0; i < this.vetor.length; i++) {
             keys.add(vetor[i].getMatricula());
         }
@@ -270,7 +285,7 @@ public class Vetor implements Map<Integer, Estudante> {
     @Override
     public Collection<Estudante> values() {
         Collection<Estudante> collectionEstudantes = null;
-        
+
         for (int i = 0; i < this.vetor.length; i++) {
             collectionEstudantes.add(vetor[i].getEstudante());
         }
@@ -280,9 +295,8 @@ public class Vetor implements Map<Integer, Estudante> {
     @Override
     public Set<Entry<Integer, Estudante>> entrySet() {
         Set<Entry<Integer, Estudante>> setEstudantes = null;
-       
-        //setEstudantes.addAll(this.values());
 
+        //setEstudantes.addAll(this.values());
         return setEstudantes;
     }
 }

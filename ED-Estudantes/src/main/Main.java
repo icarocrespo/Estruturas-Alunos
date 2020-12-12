@@ -14,7 +14,7 @@ public class Main {
    
 
         // Chamada do método que exibe os dados referentes ao Vetor
-
+        vetor();
         // Chamada do método que exibe os dados referentes ao Árvore Binária
         //arvore(mapa);
         // Chamada do método que exibe os dados referentes ao Lista Duplamente Encadeada
@@ -26,15 +26,16 @@ public class Main {
      */
     public static void vetor() {
         System.out.println("VETOR");
-        Vetor vetor = new Vetor();
-        
-        System.out.println("Tempo decorrido para inserção de 100.000 registros em Lista Duplamente Encadeada: " + vetor.getTempo_insercao() + "ms");
-        //vetor.mostrarCrescente();
-        System.out.println("Tempo decorrido para ordenação da Lista Duplamente Encadeada: " + vetor.getTempo_ordem() + "ms");
+        Vetor vetor = new Vetor(100000);
+        vetor.inserir();
+        System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + vetor.getTempo_insercao() + "ms");
+        vetor.mostrarCrescente();
+        System.out.println("Tempo decorrido para ordenação: " + vetor.getTempo_ordem() + "ms");
         vetor.contarES();
         System.out.println("Tempo decorrido para contagem dos estudandantes de Engenharia de Software: " + vetor.getTempo_es() + "ms");
-        //vetor.remocaoNovo();
+        vetor.remocaoNovo();
         System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + vetor.getTempo_remocao() + "ms");
+        System.out.println("--- || ---");
     }
 
     /*
