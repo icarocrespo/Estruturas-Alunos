@@ -76,27 +76,39 @@ public class Arvore implements Map<Integer, Estudante> {
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
         long tempo = System.nanoTime();
-
+        for (int i = 0; i < 100000; i++) {
+            Estudante estudante = new Estudante();
+            put(estudante.getMatricula(), estudante);
+        }
         this.tempo_insercao = System.nanoTime() - tempo;
     }
 
     // Apresentar todos os estudantes em ordem crescente de número de matricula
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
-
+        mostrar(this.raiz);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
-    // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public void contarES() {
+    public void contarES(Nodo nodo) {
         long tempo = System.nanoTime();
-        Estudante estudante = new Estudante();
-        int count = 0;
-        
-        while(containsValue(this.raiz)){
-            count++;
-        }
+
+        contar(this.raiz);
         this.tempo_es = System.nanoTime() - tempo;
+    }
+
+    // Verificar quantos estudantes realizam o curso Engenharia de Software
+    public void contar(Nodo nodo) {
+        int count = 0;
+        if (nodo != null) {
+            //if (nodo.getEstudante().getCurso().equals("Engenharia de Software")) {
+            mostrar(this.raiz.getEsquerda());
+            System.out.println("Matrícula: " + nodo.getEstudante().getMatricula()
+                    + " | Curso: " + nodo.getEstudante().getCurso());
+            mostrar(this.raiz.getDireita());
+        }
+        //}
+
     }
 
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
@@ -104,9 +116,19 @@ public class Arvore implements Map<Integer, Estudante> {
         long tempo = System.nanoTime();
 
         while (remove(get(202050000)) != null) {
-            
+
         }
         this.tempo_remocao = System.nanoTime() - tempo;
+    }
+
+    // Mostrar o Nodo
+    public void mostrar(Nodo nodo) {
+        if (this.raiz != null) {
+            mostrar(this.raiz.getEsquerda());
+            System.out.println("Matrícula: " + nodo.getEstudante().getMatricula()
+                    + " | Curso: " + nodo.getEstudante().getCurso());
+            mostrar(this.raiz.getDireita());
+        }
     }
 
     // Método recursivo para calcular o tamanho
@@ -181,7 +203,6 @@ public class Arvore implements Map<Integer, Estudante> {
             nodo = new Nodo(null, null, matricula, estudante);
             return nodo.getEstudante();
         }
-
         if (matricula < nodo.getMatricula()) {
             nodo.getEsquerda().setMatricula(matricula);
             nodo.getEsquerda().setEstudante(put(nodo.getEsquerda(), matricula, estudante));

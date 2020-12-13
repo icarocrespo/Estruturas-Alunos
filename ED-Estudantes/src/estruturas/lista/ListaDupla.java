@@ -144,6 +144,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
         long tempo = System.nanoTime();
 
         remove(202050000);
+        
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 
@@ -156,7 +157,6 @@ public class ListaDupla implements Map<Integer, Estudante> {
         while (aux != null) {
             System.out.println("Posição " + i + ": Matrícula: "
                     + aux.getEstudante().getMatricula() + " | Curso: " + aux.getEstudante().getCurso());
-
             aux = aux.getProximo();
             i++;
         }
@@ -268,7 +268,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
         Nodo aux = this.inicio;
 
         do {
-            if (aux.getMatricula() < Integer.parseInt(key.toString()) && aux == this.inicio) {
+            if (aux.getMatricula() <= Integer.parseInt(key.toString()) && aux == this.inicio) {
                 this.inicio = aux.getProximo();
             } else if (aux.getMatricula() < Integer.parseInt(key.toString())) {
                 aux.getAnterior().setProximo(aux.getProximo());
@@ -276,7 +276,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
             }
             aux = aux.getProximo();
         } while (aux != null);
-        return aux.getAnterior().getEstudante();
+        return null;
 
     }
 
