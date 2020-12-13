@@ -119,7 +119,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
             aux = aux.getProximo();
 
         } while (aux.getProximo() != null);
-        mostrar(this.inicio);
+        mostrar(nodo1);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 

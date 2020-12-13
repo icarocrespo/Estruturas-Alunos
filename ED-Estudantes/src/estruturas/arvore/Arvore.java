@@ -90,25 +90,26 @@ public class Arvore implements Map<Integer, Estudante> {
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
-    public void contarES(Nodo nodo) {
+    public void contarES() {
         long tempo = System.nanoTime();
-
-        contar(this.raiz);
+        int count = 0;
+        System.out.println(contar(this.raiz, count));
         this.tempo_es = System.nanoTime() - tempo;
     }
 
     // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public void contar(Nodo nodo) {
-        int count = 0;
-        if (nodo != null) {
-            //if (nodo.getEstudante().getCurso().equals("Engenharia de Software")) {
-            mostrar(this.raiz.getEsquerda());
-            System.out.println("Matrícula: " + nodo.getEstudante().getMatricula()
-                    + " | Curso: " + nodo.getEstudante().getCurso());
-            mostrar(this.raiz.getDireita());
+    public int contar(Nodo nodo, int count) {
+        if (nodo == null) {
+            return 0; 
         }
-        //}
-
+        if(nodo.getEstudante().isCursoES()){
+            count++;
+        }
+        
+        contar(nodo.getEsquerda(), count);
+        contar(nodo.getDireita(), count);
+        
+        return count;
     }
 
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
@@ -123,11 +124,11 @@ public class Arvore implements Map<Integer, Estudante> {
 
     // Mostrar o Nodo
     public void mostrar(Nodo nodo) {
-        if (this.raiz != null) {
-            mostrar(this.raiz.getEsquerda());
+        if (nodo != null) {
             System.out.println("Matrícula: " + nodo.getEstudante().getMatricula()
                     + " | Curso: " + nodo.getEstudante().getCurso());
-            mostrar(this.raiz.getDireita());
+            mostrar(nodo.getEsquerda());
+            mostrar(nodo.getDireita());
         }
     }
 
@@ -198,24 +199,25 @@ public class Arvore implements Map<Integer, Estudante> {
         return get(this.raiz, (Integer) key);
     }
 
-    public Estudante put(Nodo nodo, Integer matricula, Estudante estudante) {
+    public Nodo put(Nodo nodo, Integer matricula, Estudante estudante) {
         if (nodo == null) {
-            nodo = new Nodo(null, null, matricula, estudante);
-            return nodo.getEstudante();
+            Nodo aux = new Nodo(null, null, matricula, estudante);
+            if (this.raiz == null) {
+                this.raiz = aux;
+            }
+            return aux;
         }
         if (matricula < nodo.getMatricula()) {
-            nodo.getEsquerda().setMatricula(matricula);
-            nodo.getEsquerda().setEstudante(put(nodo.getEsquerda(), matricula, estudante));
+            nodo.setEsquerda(put(nodo.getEsquerda(), matricula, estudante));
         } else if (matricula > nodo.getMatricula()) {
-            nodo.getDireita().setMatricula(matricula);
-            nodo.setEstudante(put(nodo.getDireita(), matricula, estudante));
+            nodo.setDireita(put(nodo.getDireita(), matricula, estudante));
         }
-        return nodo.getEstudante();
+        return nodo;
     }
 
     @Override
     public Estudante put(Integer key, Estudante value) {
-        return put(this.raiz, key, value);
+        return put(this.raiz, key, value).getEstudante();
     }
 
     public Estudante remove(Nodo nodo, Integer matricula) {
@@ -237,10 +239,19 @@ public class Arvore implements Map<Integer, Estudante> {
                 return nodo.getEsquerda().getEstudante();
             }
 
-            //nodo.setMatricula(valorMenor(nodo.getDireita());
-            //nodo.getDireita().setEstudante(nodo.getDireita(), nodo.getEstudante());
+            nodo.setMatricula(valorMenor(nodo.getDireita()).getMatricula());
+            nodo.getDireita().setEstudante(nodo.getEstudante());
         }
         return nodo.getEstudante();
+    }
+
+    public Nodo valorMenor(Nodo nodo) {
+        Nodo menor = this.raiz;
+        while (menor.getEsquerda() != null) {
+            menor = nodo.getEsquerda();
+            nodo = nodo.getEsquerda();
+        }
+        return nodo;
     }
 
     @Override
@@ -255,7 +266,7 @@ public class Arvore implements Map<Integer, Estudante> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.raiz = null;
     }
 
     @Override
@@ -263,9 +274,21 @@ public class Arvore implements Map<Integer, Estudante> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Nodo percorrer(Nodo nodo) {
+        if (nodo != null) {
+            return nodo;
+        }
+        percorrer(nodo.getEsquerda());
+        percorrer(nodo.getDireita());
+        return null;
+    }
+
     @Override
     public Collection<Estudante> values() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Collection<Estudante> collectionEstudantes = null;
+
+        collectionEstudantes.add(percorrer(this.raiz).getEstudante());
+        return collectionEstudantes;
     }
 
     @Override

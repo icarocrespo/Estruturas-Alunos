@@ -11,14 +11,14 @@ import estruturas.lista.ListaDupla;
 public class Main {
 
     public static void main(String[] args) {
-   
-
         // Chamada do método que exibe os dados referentes ao Vetor
         //vetor();
-        // Chamada do método que exibe os dados referentes ao Árvore Binária
-        arvore();
+        
         // Chamada do método que exibe os dados referentes ao Lista Duplamente Encadeada
-        //lista();
+        lista();
+        
+        // Chamada do método que exibe os dados referentes ao Árvore Binária
+        //arvore();
     }
 
     /*
@@ -46,11 +46,11 @@ public class Main {
         Arvore arvore = new Arvore();
         arvore.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + arvore.getTempo_insercao() + "ms");
-        //arvore.mostrarCrescente();
+        arvore.mostrarCrescente();
         System.out.println("Tempo decorrido para ordenação crescente: " + arvore.getTempo_ordem() + "ms");
-        //arvore.contarES();
+        arvore.contarES();
         System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software: " + arvore.getTempo_es() + "ms");
-        //arvore.remocao();
+        arvore.remocao();
         System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + arvore.getTempo_remocao() + "ms");
         System.out.println("--- || ---");
     }
