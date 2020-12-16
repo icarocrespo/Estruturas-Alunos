@@ -103,23 +103,17 @@ public class ListaDupla implements Map<Integer, Estudante> {
     // Apresentar todos os estudantes em ordem crescente de número de matricula
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
-        Nodo nodo1;
-        Nodo nodo2;
+
         Nodo aux = this.inicio;
+        Nodo aux2 = aux.getProximo();
+
+        
 
         do {
-            nodo1 = aux;
-            nodo2 = nodo1.getProximo();
-            if (nodo2.getMatricula() < nodo1.getMatricula()) {
-                nodo1.setProximo(nodo2.getProximo());
-                nodo2.setAnterior(nodo1.getAnterior());
-                nodo1.setAnterior(nodo2);
-                nodo2.setProximo(nodo1);
-            }
-            aux = aux.getProximo();
+            aux = aux.getAnterior();
+        } while (aux.getAnterior() != null);
 
-        } while (aux.getProximo() != null);
-        mostrar(nodo1);
+        mostrar(aux);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
@@ -144,7 +138,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
         long tempo = System.nanoTime();
 
         remove(202050000);
-        
+
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 

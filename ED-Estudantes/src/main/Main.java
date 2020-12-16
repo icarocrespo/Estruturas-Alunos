@@ -15,14 +15,14 @@ public class Main {
         //vetor();
         
         // Chamada do método que exibe os dados referentes ao Lista Duplamente Encadeada
-        lista();
+        //lista();
         
         // Chamada do método que exibe os dados referentes ao Árvore Binária
-        //arvore();
+        arvore();
     }
 
     /*
-     * Método de análise de inserção na ED Vetor
+     * Método de análise da ED Vetor
      */
     public static void vetor() {
         System.out.println("VETOR");
@@ -39,34 +39,35 @@ public class Main {
     }
 
     /*
-     * Método de análise de inserção na ED Árvore Binária
+     * Método de anális da ED Árvore Binária
      */
     public static void arvore() {
         System.out.println("ÁRVORE BINÁRIA");
-        Arvore arvore = new Arvore();
+        Arvore arvore = new Arvore(100000);
         arvore.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + arvore.getTempo_insercao() + "ms");
         arvore.mostrarCrescente();
-        System.out.println("Tempo decorrido para ordenação crescente: " + arvore.getTempo_ordem() + "ms");
+        System.out.println("Tempo decorrido para mostrar crescente: " + arvore.getTempo_ordem() + "ms");
         arvore.contarES();
-        System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software: " + arvore.getTempo_es() + "ms");
+        System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software ("
+                + arvore.getEstudantesES() + ") : " + arvore.getTempo_es() + "ms");
         arvore.remocao();
         System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + arvore.getTempo_remocao() + "ms");
         System.out.println("--- || ---");
     }
 
     /*
-     * Método de análise de inserção na ED Lista Duplamente Encadeada
+     * Método de análise da ED Lista Duplamente Encadeada
      */
     public static void lista() {
         System.out.println("LISTA DUPLAMENTE ENCADEADA");
-        ListaDupla lista = new ListaDupla(100000);
+        ListaDupla lista = new ListaDupla(100);
         lista.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + lista.getTempo_insercao() + "ms");
         lista.mostrarCrescente();
         System.out.println("Tempo decorrido para ordenação crescente: " + lista.getTempo_ordem() + "ms");
-        lista.contarES();
-        System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software: " + lista.getTempo_es() + "ms");
+        int qtd = lista.contarES();
+        System.out.println("Tempo decorrido para contagem dos " + qtd + " estudantes de Engenharia de Software: " + lista.getTempo_es() + "ms");
         lista.remocao();
         System.out.println("Tempo decorrido para remoção dos estudantes com matrícula <= 20205000: " + lista.getTempo_remocao() + "ms");
         System.out.println("--- || ---");

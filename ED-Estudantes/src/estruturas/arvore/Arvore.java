@@ -22,13 +22,21 @@ public class Arvore implements Map<Integer, Estudante> {
     private long tempo_ordem;
     private long tempo_es;
     private long tempo_remocao;
-
-    public Arvore(Nodo raiz) {
+    private int nElementos;
+    private int estudantesES = 0;
+    
+    public Arvore(Nodo raiz, int nElementos) {
         this.raiz = raiz;
+        this.nElementos = nElementos;
+    }
+    
+    public Arvore(int nElementos){
+        this.nElementos = nElementos;
     }
 
     public Arvore() {
-
+        this.raiz = null;
+        this.nElementos = 0;
     }
 
 // Getters e Setters
@@ -39,6 +47,24 @@ public class Arvore implements Map<Integer, Estudante> {
     public void setRaiz(Nodo raiz) {
         this.raiz = raiz;
     }
+
+    public int getnElementos() {
+        return nElementos;
+    }
+
+    public void setnElementos(int nElementos) {
+        this.nElementos = nElementos;
+    }
+
+    public int getEstudantesES() {
+        return estudantesES;
+    }
+
+    public void setEstudantesES(int estudantesES) {
+        this.estudantesES = estudantesES;
+    }
+    
+    
 
     public long getTempo_insercao() {
         return tempo_insercao;
@@ -76,7 +102,7 @@ public class Arvore implements Map<Integer, Estudante> {
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
         long tempo = System.nanoTime();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < this.nElementos; i++) {
             Estudante estudante = new Estudante();
             put(estudante.getMatricula(), estudante);
         }
@@ -92,31 +118,30 @@ public class Arvore implements Map<Integer, Estudante> {
 
     public void contarES() {
         long tempo = System.nanoTime();
-        int count = 0;
-        System.out.println(contar(this.raiz, count));
+        contar(this.raiz);
         this.tempo_es = System.nanoTime() - tempo;
     }
 
     // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public int contar(Nodo nodo, int count) {
+    public int contar(Nodo nodo) {
         if (nodo == null) {
-            return 0; 
+            return 0;
         }
-        if(nodo.getEstudante().isCursoES()){
-            count++;
+        if (nodo.getEstudante().isCursoES()) {
+            this.estudantesES++;
         }
-        
-        contar(nodo.getEsquerda(), count);
-        contar(nodo.getDireita(), count);
-        
-        return count;
+
+        contar(nodo.getEsquerda());
+        contar(nodo.getDireita());
+
+        return this.estudantesES;
     }
 
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
     public void remocao() {
         long tempo = System.nanoTime();
 
-        while (remove(get(202050000)) != null) {
+        while (remove(202050000) != null) {
 
         }
         this.tempo_remocao = System.nanoTime() - tempo;

@@ -126,7 +126,7 @@ public class Vetor implements Map<Integer, Estudante> {
         long tempo = System.nanoTime();
         int count = 0;
         for (int i = 0; i < this.tamanho; i++) {
-            if (this.vetor[i].getEstudante().getCurso().equals("Engenharia de Software")) {
+            if (this.vetor[i].getEstudante().isCursoES()) {
                 count++;
             }
             this.tempo_es = System.nanoTime() - tempo;
