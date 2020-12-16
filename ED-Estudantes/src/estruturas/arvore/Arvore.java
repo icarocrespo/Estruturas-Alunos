@@ -24,13 +24,13 @@ public class Arvore implements Map<Integer, Estudante> {
     private long tempo_remocao;
     private int nElementos;
     private int estudantesES = 0;
-    
+
     public Arvore(Nodo raiz, int nElementos) {
         this.raiz = raiz;
         this.nElementos = nElementos;
     }
-    
-    public Arvore(int nElementos){
+
+    public Arvore(int nElementos) {
         this.nElementos = nElementos;
     }
 
@@ -63,8 +63,6 @@ public class Arvore implements Map<Integer, Estudante> {
     public void setEstudantesES(int estudantesES) {
         this.estudantesES = estudantesES;
     }
-    
-    
 
     public long getTempo_insercao() {
         return tempo_insercao;
@@ -141,9 +139,11 @@ public class Arvore implements Map<Integer, Estudante> {
     public void remocao() {
         long tempo = System.nanoTime();
 
-        while (remove(202050000) != null) {
-
+        for (int i = 0; i < 100000; i++) {
+            
+            remove(menor202050000(this.raiz).getMatricula());
         }
+
         this.tempo_remocao = System.nanoTime() - tempo;
     }
 
@@ -154,6 +154,16 @@ public class Arvore implements Map<Integer, Estudante> {
                     + " | Curso: " + nodo.getEstudante().getCurso());
             mostrar(nodo.getEsquerda());
             mostrar(nodo.getDireita());
+        }
+    }
+
+    public Nodo menor202050000(Nodo nodo) {
+        if (nodo.getMatricula() < 202050000) {
+            return nodo;
+        } else if (nodo.getMatricula() > 202050000) {
+            return menor202050000(nodo.getEsquerda());
+        } else {
+            return menor202050000(nodo.getDireita());
         }
     }
 
@@ -245,43 +255,42 @@ public class Arvore implements Map<Integer, Estudante> {
         return put(this.raiz, key, value).getEstudante();
     }
 
-    public Estudante remove(Nodo nodo, Integer matricula) {
+    public Nodo remove(Nodo nodo, Integer matricula) {
         if (nodo == null) {
-            return nodo.getEstudante();
+            return nodo;
         }
 
         if (matricula < nodo.getMatricula()) {
-            nodo.getEsquerda().setEstudante(remove(nodo.getEsquerda(), matricula));
-            nodo.getDireita().setMatricula(matricula);
+            nodo.setEsquerda(remove(nodo.getEsquerda(), matricula));
         } else if (matricula > nodo.getMatricula()) {
-            nodo.getDireita().setMatricula(matricula);
-            nodo.getDireita().setEstudante(remove(nodo.getDireita(), matricula));
+            nodo.setDireita(remove(nodo.getDireita(), matricula));
+
         } else {
 
             if (nodo.getEsquerda() == null) {
-                return nodo.getDireita().getEstudante();
-            } else if (nodo.getDireita().getEstudante() == null) {
-                return nodo.getEsquerda().getEstudante();
+                return nodo.getDireita();
+            } else if (nodo.getDireita() == null) {
+                return nodo.getEsquerda();
             }
 
-            nodo.setMatricula(valorMenor(nodo.getDireita()).getMatricula());
-            nodo.getDireita().setEstudante(nodo.getEstudante());
-        }
-        return nodo.getEstudante();
-    }
-
-    public Nodo valorMenor(Nodo nodo) {
-        Nodo menor = this.raiz;
-        while (menor.getEsquerda() != null) {
-            menor = nodo.getEsquerda();
-            nodo = nodo.getEsquerda();
+            matricula = valorMenor(nodo.getDireita());
+            nodo.setDireita(remove(nodo.getDireita(), matricula));
         }
         return nodo;
     }
 
+    public int valorMenor(Nodo nodo) {
+        int menor = this.raiz.getMatricula();
+        while (nodo.getEsquerda() != null) {
+            menor = nodo.getEsquerda().getMatricula();
+            nodo = nodo.getEsquerda();
+        }
+        return menor;
+    }
+
     @Override
     public Estudante remove(Object key) {
-        return remove(this.raiz, (Integer) key);
+        return remove(this.raiz, (Integer) key).getEstudante();
     }
 
     @Override
@@ -296,16 +305,20 @@ public class Arvore implements Map<Integer, Estudante> {
 
     @Override
     public Set<Integer> keySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<Integer> keys = null;
+
+        keys.add(percorrer(raiz).getMatricula());
+
+        return keys;
     }
 
     public Nodo percorrer(Nodo nodo) {
         if (nodo != null) {
-            return nodo;
+            return null;
         }
         percorrer(nodo.getEsquerda());
         percorrer(nodo.getDireita());
-        return null;
+        return nodo;
     }
 
     @Override

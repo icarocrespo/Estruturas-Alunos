@@ -23,6 +23,7 @@ public class Vetor implements Map<Integer, Estudante> {
     private Nodo[] vetor;
     private int tamanho;
     private int posicao;
+    private int estudantesES = 0;
 
     public Vetor(int tamanho) {
         this.tamanho = tamanho;
@@ -89,8 +90,14 @@ public class Vetor implements Map<Integer, Estudante> {
     public void setPosicao(int posicao) {
         this.posicao = posicao;
     }
-    
-    
+
+    public int getEstudantesES() {
+        return estudantesES;
+    }
+
+    public void setEstudantesES(int estudantesES) {
+        this.estudantesES = estudantesES;
+    }
 
 // Métodos aos requisitos
     // Inserir 100.000 (cem mil) estudantes
@@ -110,28 +117,28 @@ public class Vetor implements Map<Integer, Estudante> {
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
 
-        for (int i = 0; i < this.tamanho; i++)
-            for (int j = 0; j < this.tamanho-i-1; j++)
-                if (this.vetor[j].getMatricula() > this.vetor[j+1].getMatricula()){
+        for (int i = 0; i < this.tamanho; i++) {
+            for (int j = 0; j < this.tamanho - i - 1; j++) {
+                if (this.vetor[j].getMatricula() > this.vetor[j + 1].getMatricula()) {
                     Nodo nodo = this.vetor[j];
-                    this.vetor[j] = this.vetor[j+1];
-                    this.vetor[j+1] = nodo;
+                    this.vetor[j] = this.vetor[j + 1];
+                    this.vetor[j + 1] = nodo;
                 }
+            }
+        }
         mostrar(this.vetor);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
     // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public int contarES() {
+    public void contarES() {
         long tempo = System.nanoTime();
-        int count = 0;
         for (int i = 0; i < this.tamanho; i++) {
             if (this.vetor[i].getEstudante().isCursoES()) {
-                count++;
+                this.estudantesES++;
             }
             this.tempo_es = System.nanoTime() - tempo;
         }
-        return count;
     }
 
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000 (com novo vetor)

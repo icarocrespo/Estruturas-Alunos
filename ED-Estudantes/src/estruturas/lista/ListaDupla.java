@@ -23,6 +23,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
     private long tempo_es;
     private long tempo_remocao;
     private int nElementos;
+    private int estudantesES = 0;
 
     public ListaDupla(Nodo inicio, int nElementos) {
         this.inicio = inicio;
@@ -87,6 +88,15 @@ public class ListaDupla implements Map<Integer, Estudante> {
         this.nElementos = nElementos;
     }
 
+    public int getEstudantesES() {
+        return estudantesES;
+    }
+
+    public void setEstudantesES(int estudantesES) {
+        this.estudantesES = estudantesES;
+    }
+    
+
 // Métodos aos requisitos
     // Inserir 100.000 (cem mil) estudantes
     public void inserir() {
@@ -118,19 +128,17 @@ public class ListaDupla implements Map<Integer, Estudante> {
     }
 
     // Verificar quantos estudantes realizam o curso Engenharia de Software
-    public int contarES() {
+    public void contarES() {
         long tempo = System.nanoTime();
-        int count = 0;
 
         Nodo aux = this.inicio;
         while (aux != null) {
             if (aux.getEstudante().getCurso().equals("Engenharia de Software")) {
-                count++;
+                this.estudantesES++;
             }
             aux = aux.getProximo();
         }
         this.tempo_es = System.nanoTime() - tempo;
-        return count;
     }
 
     // Remover todos os estudantes com número de matricula igual ou inferior a 202050000
