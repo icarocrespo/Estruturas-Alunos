@@ -95,7 +95,6 @@ public class ListaDupla implements Map<Integer, Estudante> {
     public void setEstudantesES(int estudantesES) {
         this.estudantesES = estudantesES;
     }
-    
 
 // Métodos aos requisitos
     // Inserir 100.000 (cem mil) estudantes
@@ -114,12 +113,24 @@ public class ListaDupla implements Map<Integer, Estudante> {
     public void ordenar() {
         long tempo = System.nanoTime();
 
-        Nodo aux = this.inicio;
-        Nodo aux2 = aux.getProximo();        
+        Nodo nodo = this.inicio;
+        Estudante aux;
+        Nodo controle = nodo.getProximo();
 
-        do {
-            aux = aux.getAnterior();
-        } while (aux.getAnterior() != null);
+        while (nodo.getProximo() != null) {
+            while (controle != null) {
+                if (nodo.getMatricula() > controle.getMatricula()) {
+                    aux = controle.getEstudante();
+                    controle.setEstudante(nodo.getEstudante());
+                    controle.setMatricula(nodo.getEstudante().getMatricula());
+                    nodo.setEstudante(aux);
+                    nodo.setMatricula(aux.getMatricula());
+                }
+                controle = controle.getProximo();
+            }
+            nodo = nodo.getProximo();
+            controle = nodo.getProximo();
+        }
 
         this.tempo_ordem = System.nanoTime() - tempo;
     }
@@ -221,7 +232,6 @@ public class ListaDupla implements Map<Integer, Estudante> {
 
     @Override
     public Estudante get(Object key) {
-
         if (this.inicio.getMatricula().equals(key)) {
             return this.inicio.getEstudante();
         } else {
@@ -276,11 +286,11 @@ public class ListaDupla implements Map<Integer, Estudante> {
             aux = aux.getProximo();
         } while (aux != null);
         return null;
-
     }
 
     @Override
-    public void putAll(Map<? extends Integer, ? extends Estudante> m) {
+    public void putAll(Map<? extends Integer, ? extends Estudante> m
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

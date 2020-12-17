@@ -57,12 +57,13 @@ public class Main {
         System.out.println("");
         vetor.ordenar();
         listaDupla.ordenar();
-        System.out.println("Vetor | Tempo decorrido: " + vetor.getTempo_ordem() + "ms");
-        System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_ordem() + "ms");
         System.out.println("-- Mostrando Vetor --");
         vetor.mostrar();
         System.out.println("Mostrando Lista duplamente encadeada");
         listaDupla.mostrar();
+        System.out.println("Vetor | Tempo decorrido: " + vetor.getTempo_ordem() + "ms");
+        System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_ordem() + "ms");
+        System.out.println("");
     }
 
     /*
@@ -75,8 +76,8 @@ public class Main {
         listaDupla.contarES();
         System.out.println("Lista duplamente encadeada | Tempo decorrido dos " + listaDupla.getEstudantesES() + " estudantes: " + listaDupla.getTempo_es() + "ms");
         arvore.contarES();
-        System.out.println("Árvore binária | Tempo decorrido para contagem dos estudantes de Engenharia de Software ("
-                + arvore.getEstudantesES() + ") : " + arvore.getTempo_es() + "ms");
+        System.out.println("Árvore binária | Tempo decorrido dos "
+                + arvore.getEstudantesES() + " estudantes: " + arvore.getTempo_es() + "ms");
     }
 
     /*
@@ -86,8 +87,8 @@ public class Main {
         System.out.println("REMOÇÃO ESTUDANTES <= 202050000");
         vetor.remocaoNovo();
         System.out.println("Vetor | Tempo decorrido: " + vetor.getTempo_remocao() + "ms");
-        //listaDupla.remocao();
-        //System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_remocao() + "ms");
+        listaDupla.remocao();
+        System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_remocao() + "ms");
         arvore.remocao();
         System.out.println("Árvore binária | Tempo decorrido: " + arvore.getTempo_remocao() + "ms");
         System.out.println("");
