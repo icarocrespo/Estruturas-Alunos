@@ -19,7 +19,7 @@ public class Main {
         insercao(vetor, listaDupla, arvore);
 
         // Análise de ordenação
-        ordenacao(vetor, listaDupla);
+        ordenacao(vetor, listaDupla, arvore);
 
         // Análise de contagem
         contarES(vetor, listaDupla, arvore);
@@ -52,20 +52,21 @@ public class Main {
     /*
      * Método de análise da ordenação crescente
      */
-    public static void ordenacao(Vetor vetor, ListaDupla listaDupla) {
+    public static void ordenacao(Vetor vetor, ListaDupla listaDupla, Arvore arvore) {
         System.out.println("ORDENAÇÃO CRESCENTE");
         System.out.println("");
+        System.out.println("-- Ordenando e mostrando Vetor --");
         vetor.ordenar();
+        System.out.println("-- Ordenando e mostrando Lista duplamente encadeada --");
         listaDupla.ordenar();
-        System.out.println("-- Mostrando Vetor --");
-        vetor.mostrar();
-        System.out.println("Mostrando Lista duplamente encadeada");
-        listaDupla.mostrar();
+        System.out.println("-- Mostrando Árvore binária --");
+        arvore.mostrarCrescente();
         System.out.println("Vetor | Tempo decorrido: " + vetor.getTempo_ordem() + "ms");
         System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_ordem() + "ms");
+        System.out.println("Árvore binária | Tempo decorrido: " + arvore.getTempo_mostrar() + "ms");
         System.out.println("");
     }
-
+    
     /*
      * Método de contagem dos estudantes de Engenharia de Software
      */
@@ -121,7 +122,7 @@ public class Main {
         arvore.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + arvore.getTempo_insercao() + "ms");
         arvore.mostrarCrescente();
-        System.out.println("Tempo decorrido para mostrar crescente: " + arvore.getTempo_ordem() + "ms");
+        System.out.println("Tempo decorrido para mostrar crescente: " + arvore.getTempo_mostrar() + "ms");
         arvore.contarES();
         System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software ("
                 + arvore.getEstudantesES() + ") : " + arvore.getTempo_es() + "ms");

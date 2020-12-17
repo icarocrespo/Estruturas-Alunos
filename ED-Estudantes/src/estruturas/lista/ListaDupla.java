@@ -132,6 +132,7 @@ public class ListaDupla implements Map<Integer, Estudante> {
             controle = nodo.getProximo();
         }
 
+        mostrar();
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 

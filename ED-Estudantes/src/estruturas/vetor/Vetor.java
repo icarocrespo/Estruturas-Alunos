@@ -126,6 +126,7 @@ public class Vetor implements Map<Integer, Estudante> {
                 }
             }
         }
+        mostrar();
         this.tempo_ordem = System.nanoTime() - tempo;        
     }
 

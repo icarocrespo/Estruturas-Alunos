@@ -19,7 +19,7 @@ public class Arvore implements Map<Integer, Estudante> {
     // Atributo que define a raiz da Estrutura de Dados
     private Nodo raiz;
     private long tempo_insercao;
-    private long tempo_ordem;
+    private long tempo_mostrar;
     private long tempo_es;
     private long tempo_remocao;
     private int nElementos;
@@ -72,12 +72,12 @@ public class Arvore implements Map<Integer, Estudante> {
         this.tempo_insercao = tempo_insercao;
     }
 
-    public long getTempo_ordem() {
-        return tempo_ordem;
+    public long getTempo_mostrar() {
+        return tempo_mostrar;
     }
 
-    public void setTempo_ordem(long tempo_ordem) {
-        this.tempo_ordem = tempo_ordem;
+    public void setTempo_mostrar(long tempo_mostrar) {
+        this.tempo_mostrar = tempo_mostrar;
     }
 
     public long getTempo_es() {
@@ -111,7 +111,7 @@ public class Arvore implements Map<Integer, Estudante> {
     public void mostrarCrescente() {
         long tempo = System.nanoTime();
         mostrar(this.raiz);
-        this.tempo_ordem = System.nanoTime() - tempo;
+        this.tempo_mostrar = System.nanoTime() - tempo;
     }
 
     public void contarES() {
