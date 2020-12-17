@@ -55,11 +55,14 @@ public class Main {
     public static void ordenacao(Vetor vetor, ListaDupla listaDupla) {
         System.out.println("ORDENAÇÃO CRESCENTE");
         System.out.println("");
-        vetor.mostrarCrescente();
-        listaDupla.mostrarCrescente();
+        vetor.ordenar();
+        listaDupla.ordenar();
         System.out.println("Vetor | Tempo decorrido: " + vetor.getTempo_ordem() + "ms");
         System.out.println("Lista duplamente encadeada | Tempo decorrido: " + listaDupla.getTempo_ordem() + "ms");
-        System.out.println("");
+        System.out.println("-- Mostrando Vetor --");
+        vetor.mostrar();
+        System.out.println("Mostrando Lista duplamente encadeada");
+        listaDupla.mostrar();
     }
 
     /*
@@ -98,7 +101,8 @@ public class Main {
         Vetor vetor = new Vetor(100000);
         vetor.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + vetor.getTempo_insercao() + "ms");
-        vetor.mostrarCrescente();
+        vetor.ordenar();
+        vetor.mostrar();
         System.out.println("Tempo decorrido para ordenação crescente: " + vetor.getTempo_ordem() + "ms");
         vetor.contarES();
         System.out.println("Tempo decorrido para contagem dos estudantes de Engenharia de Software: " + vetor.getTempo_es() + "ms");
@@ -133,7 +137,8 @@ public class Main {
         ListaDupla lista = new ListaDupla(100000);
         lista.inserir();
         System.out.println("Tempo decorrido para inserção de 100.000 estudantes: " + lista.getTempo_insercao() + "ms");
-        lista.mostrarCrescente();
+        lista.ordenar();
+        lista.mostrar();
         System.out.println("Tempo decorrido para ordenação crescente: " + lista.getTempo_ordem() + "ms");
         lista.contarES();
         System.out.println("Tempo decorrido para contagem dos " + lista.getEstudantesES() + " estudantes de Engenharia de Software: " + lista.getTempo_es() + "ms");

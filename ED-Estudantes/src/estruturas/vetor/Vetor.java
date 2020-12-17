@@ -114,7 +114,7 @@ public class Vetor implements Map<Integer, Estudante> {
     }
 
     // Apresentar todos os estudantes em ordem crescente de número de matricula
-    public void mostrarCrescente() {
+    public void ordenar() {
         long tempo = System.nanoTime();
 
         for (int i = 0; i < this.tamanho; i++) {
@@ -126,8 +126,7 @@ public class Vetor implements Map<Integer, Estudante> {
                 }
             }
         }
-        mostrar(this.vetor);
-        this.tempo_ordem = System.nanoTime() - tempo;
+        this.tempo_ordem = System.nanoTime() - tempo;        
     }
 
     // Verificar quantos estudantes realizam o curso Engenharia de Software
@@ -175,11 +174,11 @@ public class Vetor implements Map<Integer, Estudante> {
     }
 
     // Mostrar o vetor
-    public void mostrar(Nodo[] vetor) {
+    public void mostrar() {
         System.out.println("Mostrando registros da ED Vetor:");
-        for (int i = 0; i < vetor.length; i++) {
+        for (int i = 0; i < this.vetor.length; i++) {
             System.out.println("Posição " + i + ": Matrícula: "
-                    + vetor[i].getEstudante().getMatricula() + " | Curso: " + vetor[i].getEstudante().getCurso());
+                    + this.vetor[i].getEstudante().getMatricula() + " | Curso: " + this.vetor[i].getEstudante().getCurso());
         }
         System.out.println("--- Fim da exibição ---");
     }

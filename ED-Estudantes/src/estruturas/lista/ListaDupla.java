@@ -111,19 +111,16 @@ public class ListaDupla implements Map<Integer, Estudante> {
     }
 
     // Apresentar todos os estudantes em ordem crescente de número de matricula
-    public void mostrarCrescente() {
+    public void ordenar() {
         long tempo = System.nanoTime();
 
         Nodo aux = this.inicio;
-        Nodo aux2 = aux.getProximo();
-
-        
+        Nodo aux2 = aux.getProximo();        
 
         do {
             aux = aux.getAnterior();
         } while (aux.getAnterior() != null);
 
-        mostrar(aux);
         this.tempo_ordem = System.nanoTime() - tempo;
     }
 
@@ -151,10 +148,10 @@ public class ListaDupla implements Map<Integer, Estudante> {
     }
 
     // Mostrar a lita
-    public void mostrar(Nodo nodo) {
+    public void mostrar() {
         System.out.println("Mostrando registros da ED Lista duplamente encadeada:");
         int i = 0;
-        Nodo aux = nodo;
+        Nodo aux = this.inicio;
 
         while (aux != null) {
             System.out.println("Posição " + i + ": Matrícula: "
